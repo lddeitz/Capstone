@@ -1,0 +1,2 @@
+class CommentTag < ApplicationRecord
+end
