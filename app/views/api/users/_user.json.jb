@@ -1,0 +1,10 @@
+{
+  id: user.id,
+  first_name: user.first_name,
+  last_name: user.last_name,
+  email: user.email, 
+  artist_name: user.artist_name, 
+  bio: user.bio, 
+  profile_picture: user.profile_picture,
+  songs: user.songs
+}

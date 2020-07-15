@@ -1,0 +1,8 @@
+{
+  id: comment.id,
+  song_id: comment.song_id,
+  author: comment.author,
+  notes: comment.notes,
+  song_timestamp: comment.song_timestamp,
+  user_id: comment.user_id
+} 

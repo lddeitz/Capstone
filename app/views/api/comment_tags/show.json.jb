@@ -1,0 +1,1 @@
+comment_tag = render partial: "comment_tag.json.jb", locals: {comment_tag: @comment_tag}
