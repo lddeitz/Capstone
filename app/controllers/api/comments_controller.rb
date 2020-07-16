@@ -14,12 +14,12 @@ class Api::CommentsController < ApplicationController
     if @comment.save
 
       #create comment_tags
-      eval(params[:tag_ids]).each do |tag_id|
-        CommentTag.create(
-          comment_id: @comment.id,
-          tag_id: tag_id
-        )
-      end 
+      # eval(params[:tag_ids]).each do |tag_id|
+      #   CommentTag.create(
+      #     comment_id: @comment.id,
+      #     tag_id: tag_id
+      #   )
+      # end 
 
       render json: { message: "Comment created successfully" }, status: :created
     else
@@ -30,19 +30,19 @@ class Api::CommentsController < ApplicationController
   def update
     @comment = Comment.find(params[:id])
 
-    @comment.notes = params[:notes] || @comment.notes,
+    @comment.notes = params[:notes] || @comment.notes
     @comment.song_timestamp = params[:song_timestamp] || @comment.song_timestamp
 
     if @comment.save
-      @comment.comment_tags.destroy_all
-      eval(params[:tag_ids]).each do |tag_id|
-        CommentTag.create(
-          comment_id: @comment.id,
-          tag_id: tag_id
-        )
-      end
-    end 
+      # @comment.comment_tags.destroy_all
+      # eval(params[:tag_ids]).each do |tag_id|
+      #   CommentTag.create(
+      #     comment_id: @comment.id,
+      #     tag_id: tag_id
+      #   )
+      # end
     render "show.json.jb"
+    end 
   end 
 
   def destroy
