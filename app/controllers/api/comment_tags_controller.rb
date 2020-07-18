@@ -2,18 +2,23 @@ class Api::CommentTagsController < ApplicationController
 
   def create
     @commentTags = CommentTags.new(
-      id: params[:id],
       comment_id: params[:comment_id],
       tag_id: params[:tag_id]
     )
-    @commentTags.save
-    render "show.json.jb"
+    if @commentTags.save
+      render "show.json.jb"
+    else 
+      render json: { errors: @commentTags.errors.full_messages }, status: :bad_request
+    end 
   end 
 
   def destroy
     @commentTags = CommentTags.destroy
-    @commentTags.save
-    render json: { message: "Tag deleted successfully" }
+    if @commentTags.save
+      render json: { message: "Tag deleted successfully" }
+    else 
+      render json: { errors: @commentTags.errors.full_messages }, status: :bad_request
+    end
   end 
 
 end

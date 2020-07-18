@@ -1,6 +1,9 @@
 class Comment < ApplicationRecord
-  has_many :comment_tags
-  has_many :tags, through: :comment_tags
+  # validates :notes, :song_timestamp, presence: true
+  # validates :notes, length: { in: 40...500 }
+
+  has_many :comment_tags, dependent: :destroy
+  has_many :tags, through: :comment_tags, dependent: :destroy
 
   belongs_to :song
 
