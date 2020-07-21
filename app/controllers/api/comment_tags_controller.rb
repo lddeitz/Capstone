@@ -15,7 +15,7 @@ class Api::CommentTagsController < ApplicationController
   def destroy
     @commentTags = CommentTags.destroy
     if @commentTags.save
-      render json: { message: "Tag deleted successfully" }
+      render json: { message: "Tag successfully destroyed!" }
     else 
       render json: { errors: @commentTags.errors.full_messages }, status: :bad_request
     end

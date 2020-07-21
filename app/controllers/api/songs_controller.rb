@@ -1,7 +1,6 @@
 class Api::SongsController < ApplicationController
 
   before_action :authenticate_user, except: [:show]
-  # before_destroy :destroy_comment
 
   def create
     @song = Song.new(
@@ -13,7 +12,7 @@ class Api::SongsController < ApplicationController
       img_url: params[:img_url]
     )
     if @song.save
-      render json: { message: "Song created successfully" }, status: :created
+      render "show.json.jb", status: :created
     else
       render json: { errors: @song.errors.full_messages }, status: :bad_request
     end 
@@ -25,7 +24,6 @@ class Api::SongsController < ApplicationController
   end 
 
   def update
- 
     @song = Song.find(params[:id])
     
     if @song.user_id == current_user.id
@@ -41,21 +39,18 @@ class Api::SongsController < ApplicationController
         render json: { errors: @song.errors.full_messages }, status: :bad_request
       end 
     end 
-
   end 
 
   def destroy
- 
     @song = Song.find(params[:id])
 
     if @song.user_id == current_user.id
       if @song.destroy
-        render json: { message: "Song successfully destroyed" }
+        render json: { message: "Song successfully destroyed!" }
       else 
         render json: { errors: @song.errors.full_messages }, status: :bad_request
       end
     end 
-
   end 
 
 end

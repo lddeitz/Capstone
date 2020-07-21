@@ -1,5 +1,7 @@
 class Api::UsersController < ApplicationController
 
+  before_action :authenticate_user, except: [:create, :show]
+
   def create
     @user = User.new(
       first_name: params[:first_name],
@@ -12,7 +14,7 @@ class Api::UsersController < ApplicationController
       password_confirmation: params[:password_confirmation]
     )
     if @user.save
-      render json: { message: "User created successfully" }, status: :created
+      render "show.json.jb", status: :created
     else
       render json: { errors: @user.errors.full_messages }, status: :bad_request
     end
@@ -39,13 +41,16 @@ class Api::UsersController < ApplicationController
         @user.password = params[:password] || @user.password
         @user.password_confirmation = params[:password_confirmation] || @user.password_confirmation
       end 
+
+      if @user.save
+        render "show.json.jb"
+      else 
+        render json: { errors: @user.errors.full_messages }, status: :bad_request
+      end 
+    else 
+      render json: {message: "Unauthorized to edit this user."}
     end
 
-    if @user.save
-      render "show.json.jb"
-    else 
-      render json: { errors: @user.errors.full_messages }, status: :bad_request
-    end 
   end 
 
   def destroy
@@ -53,7 +58,7 @@ class Api::UsersController < ApplicationController
 
     if @user == current_user
       if @user.destroy
-        render json: {Message: "Successfully destroyed!"}
+        render json: {Message: "User successfully destroyed!"}
       else 
         render json: { errors: @user.errors.full_messages }, status: :bad_request
       end

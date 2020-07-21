@@ -18,14 +18,13 @@ before_action :authenticate_user, except: [:create]
           tag_id: tag_id
         )
       end 
-      render json: { message: "Comment created successfully" }, status: :created
+      render "show.json.jb", status: :created
     else
       render json: { errors: @comment.errors.full_messages }, status: :bad_request
     end 
   end 
 
   def update
-    
     @comment = Comment.find(params[:id])
 
     if @comment.user_id == current_user.id
@@ -45,8 +44,7 @@ before_action :authenticate_user, except: [:create]
         render json: { errors: @comment.errors.full_messages }, status: :bad_request
       end 
         
-    end 
-     
+    end  
   end 
 
   def destroy
@@ -54,7 +52,7 @@ before_action :authenticate_user, except: [:create]
 
     if @comment.user_id == current_user.id
       if @comment.destroy
-        render json: { message: "Comment successfully deleted" }
+        render json: { message: "Comment successfully destroyed!" }
       else 
         render json: { errors: @comment.errors.full_messages }, status: :bad_request
       end
