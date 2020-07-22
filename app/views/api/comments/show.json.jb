@@ -1,1 +1,7 @@
 comment = render partial: "comment.json.jb", locals: {comment: @comment}
+
+comment[:song] = 
+render partial: "api/songs/song.json.jb", locals: {song: @comment.song}
+
+# comment
+

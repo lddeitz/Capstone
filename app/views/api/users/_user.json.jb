@@ -6,5 +6,5 @@
   artist_name: user.artist_name, 
   bio: user.bio, 
   profile_picture: user.profile_picture,
-  songs: user.songs
+  # songs: user.songs
 }

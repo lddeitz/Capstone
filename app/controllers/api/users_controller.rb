@@ -47,6 +47,7 @@ class Api::UsersController < ApplicationController
       else 
         render json: { errors: @user.errors.full_messages }, status: :bad_request
       end 
+
     else 
       render json: {message: "Unauthorized to edit this user."}
     end

@@ -42,6 +42,7 @@ class Api::SongsController < ApplicationController
   end 
 
   def destroy
+
     @song = Song.find(params[:id])
 
     if @song.user_id == current_user.id
@@ -51,6 +52,7 @@ class Api::SongsController < ApplicationController
         render json: { errors: @song.errors.full_messages }, status: :bad_request
       end
     end 
+
   end 
 
 end
