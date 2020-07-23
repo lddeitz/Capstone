@@ -8,16 +8,17 @@ before_action :authenticate_user, except: [:create]
       author: params[:author],
       notes: params[:notes],
       song_timestamp: params[:song_timestamp],
-      user_id: current_user.id
+      user_id: current_user.id,
     )
     if @comment.save
 
       eval(params[:tag_ids]).each do |tag_id|
         CommentTag.create(
           comment_id: @comment.id,
-          tag_id: tag_id
+          tag_id: tag_id,
         )
       end 
+      # tag_name: @comment.tags[0].name
       render "show.json.jb", status: :created
     else
       render json: { errors: @comment.errors.full_messages }, status: :bad_request

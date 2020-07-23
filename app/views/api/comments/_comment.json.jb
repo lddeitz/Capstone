@@ -5,5 +5,10 @@
   notes: comment.notes,
   song_timestamp: comment.song_timestamp,
   user_id: current_user.id,
-  tags: comment.comment_tags
+  tags: comment.tags.map do |tag|
+    render partial: "/api/tags/tag",
+    locals: { tag: tag }
+  end 
+  # tags: comment.comment_tags,
+  # tag_name: comment.tags[0].name
 } 

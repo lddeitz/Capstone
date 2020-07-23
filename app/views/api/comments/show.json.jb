@@ -1,7 +1,11 @@
 comment = render partial: "comment.json.jb", locals: {comment: @comment}
 
-comment[:song] = 
-render partial: "api/songs/song.json.jb", locals: {song: @comment.song}
+# comment[:song] = render partial: "api/songs/song.json.jb", locals: {song: @comment.song}
 
-# comment
+comment[:tags] = @comment.tags.map do |tag|
+  render partial: "/api/tags/tag", locals: {tag: tag}
+end 
+
+comment
+
 

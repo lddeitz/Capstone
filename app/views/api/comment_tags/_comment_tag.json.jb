@@ -1,5 +1,5 @@
 {
   id: comment_tag.id,
   comment_id: comment_tag.comment_id,
-  tag_id: comment_tag.tag_id,
+  tag_id: comment_tag.tag_id
 } 
