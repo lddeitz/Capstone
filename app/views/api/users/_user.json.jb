@@ -5,6 +5,5 @@
   email: user.email, 
   artist_name: user.artist_name, 
   bio: user.bio, 
-  profile_picture: user.profile_picture,
-  # songs: user.songs
+  profile_picture: user.profile_picture
 }

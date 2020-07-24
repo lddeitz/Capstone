@@ -8,8 +8,12 @@ before_action :authenticate_user, except: [:create]
       author: params[:author],
       notes: params[:notes],
       song_timestamp: params[:song_timestamp],
-      user_id: current_user.id,
     )
+    
+    if current_user
+      @comment.user_id = current_user.id
+    end 
+
     if @comment.save
 
       eval(params[:tag_ids]).each do |tag_id|

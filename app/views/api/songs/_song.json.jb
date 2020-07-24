@@ -1,10 +1,9 @@
 {
   id: song.id,
-  artist: song.user_id,
+  user_id: song.user_id,
   title: song.title,
   description: song.description,
   keywords: song.keywords,
   url: song.url,
-  img_url: song.img_url,
-  comments: song.comments
+  img_url: song.img_url
 }
