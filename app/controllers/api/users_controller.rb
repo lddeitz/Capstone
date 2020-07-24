@@ -3,6 +3,8 @@ class Api::UsersController < ApplicationController
   before_action :authenticate_user, except: [:create, :show]
 
   def create
+    # response = Cloudinary::Uploader.upload(params[:image_file])
+    # cloudinary_url = response["secure_url"]
     @user = User.new(
       first_name: params[:first_name],
       last_name: params[:last_name],
@@ -10,6 +12,7 @@ class Api::UsersController < ApplicationController
       artist_name: params[:artist_name],
       bio: params[:bio],
       profile_picture: params[:profile_picture],
+      #profile_picture: cloudinary_url,
       password: params[:password],
       password_confirmation: params[:password_confirmation]
     )
@@ -26,6 +29,8 @@ class Api::UsersController < ApplicationController
   end 
 
   def update
+    # response = Cloudinary::Uploader.upload(params[:image_file])
+    # cloudinary_url = response["secure_url"]
     @user = User.find(params[:id])
     
     if @user == current_user
@@ -36,6 +41,7 @@ class Api::UsersController < ApplicationController
       @user.artist_name = params[:artist_name] || @user.artist_name
       @user.bio = params[:bio] || @user.bio
       @user.profile_picture = params[:profile_picture] || @user.profile_picture
+      #@user.profile_picture = cloudinary_url || @user.profile_picture
 
       if params[:password]
         @user.password = params[:password] || @user.password

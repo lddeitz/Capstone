@@ -3,6 +3,8 @@ class Api::SongsController < ApplicationController
   before_action :authenticate_user, except: [:show]
 
   def create
+    # response = Cloudinary::Uploader.upload(params[:image_file])
+    # cloudinary_url = response["secure_url"]
     @song = Song.new(
       user_id: current_user.id,
       title: params[:title],
@@ -10,6 +12,7 @@ class Api::SongsController < ApplicationController
       keywords: params[:keywords],
       url: params[:url],
       img_url: params[:img_url]
+      # img_url: cloudinary_url
     )
     if @song.save
       render "show.json.jb", status: :created
@@ -24,6 +27,8 @@ class Api::SongsController < ApplicationController
   end 
 
   def update
+    # response = Cloudinary::Uploader.upload(params[:image_file])
+    # cloudinary_url = response["secure_url"]
     @song = Song.find(params[:id])
     
     if @song.user_id == current_user.id
@@ -32,6 +37,7 @@ class Api::SongsController < ApplicationController
       @song.keywords = params[:keywords] || @song.keywords
       @song.url = params[:url] || @song.url
       @song.img_url = params[:img_url] || @song.img_url
+      # @song.img_url = cloudinary_url || @song.img_url
         
       if @song.save
         render "show.json.jb"
