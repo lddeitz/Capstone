@@ -39,7 +39,7 @@ before_action :authenticate_user, except: [:create]
 
       if @comment.save
         @comment.comment_tags.destroy_all
-        eval(params[:tag_ids]).each do |tag_id|
+        params[:tag_ids].each do |tag_id|
           CommentTag.create(
             comment_id: @comment.id,
             tag_id: tag_id

@@ -28,8 +28,8 @@ class Api::SongsController < ApplicationController
   end 
 
   def update
-    # response = Cloudinary::Uploader.upload(params[:image_file])
-    # cloudinary_url = response["secure_url"]
+    response = Cloudinary::Uploader.upload(params[:image_file])
+    cloudinary_url = response["secure_url"]
     
     @song = Song.find(params[:id])
     
@@ -38,8 +38,8 @@ class Api::SongsController < ApplicationController
       @song.description = params[:description] || @song.description
       @song.keywords = params[:keywords] || @song.keywords
       @song.url = params[:url] || @song.url
-      @song.img_url = params[:img_url] || @song.img_url
-      # @song.img_url = cloudinary_url || @song.img_url
+      # @song.img_url = params[:img_url] || @song.img_url
+      @song.img_url = cloudinary_url || @song.img_url
         
       if @song.save
         render "show.json.jb"
