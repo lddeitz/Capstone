@@ -44,6 +44,13 @@ class Api::UsersController < ApplicationController
       # @user.profile_picture = params[:profile_picture] || @user.profile_picture
       # @user.profile_picture = cloudinary_url || @user.profile_picture
 
+      if params[:img_url]
+        response = Cloudinary::Uploader.upload(params[:img_url])
+        cloudinary_url = response["secure_url"]
+        @user.profile_picture = cloudinary_url || @user.profile_picture
+        # @user.profile_picture = cloudinary_url || @user.profile_picture
+      end 
+
       if params[:password]
         @user.password = params[:password] || @user.password
         @user.password_confirmation = params[:password_confirmation] || @user.password_confirmation
