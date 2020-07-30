@@ -5,24 +5,25 @@ before_action :authenticate_user, except: [:create]
   def create
     @comment = Comment.new(
       song_id: params[:song_id],
-      author: params[:author],
       notes: params[:notes],
       song_timestamp: params[:song_timestamp],
     )
-    
+
     if current_user
       @comment.user_id = current_user.id
+    else
+      @comment.author = params[:author]
     end 
 
-    if @comment.save
+    if @comment.save && (@comment.user_id || @comment.author)
 
-      eval(params[:tag_ids]).each do |tag_id|
+      params[:tag_ids].each do |tag_id|
         CommentTag.create(
           comment_id: @comment.id,
           tag_id: tag_id,
         )
       end 
-      # tag_name: @comment.tags[0].name
+
       render "show.json.jb", status: :created
     else
       render json: { errors: @comment.errors.full_messages }, status: :bad_request

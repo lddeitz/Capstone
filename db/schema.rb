@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_10_194450) do
+ActiveRecord::Schema.define(version: 2020_07_24_180346) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 2020_07_10_194450) do
     t.integer "song_id"
     t.string "author"
     t.text "notes"
-    t.time "song_timestamp"
+    t.string "song_timestamp"
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
