@@ -11,7 +11,7 @@ class Api::UsersController < ApplicationController
       email: params[:email],
       artist_name: params[:artist_name],
       bio: params[:bio],
-      profile_picture: params[:profile_picture],
+      # profile_picture: params[:profile_picture],
       # profile_picture: cloudinary_url,
       password: params[:password],
       password_confirmation: params[:password_confirmation]
@@ -39,22 +39,21 @@ class Api::UsersController < ApplicationController
       @user.email = params[:email] || @user.email
       @user.bio = params[:bio] || @user.bio
 
-      if params[:password]
-        @user.password = params[:password]
-        @user.password_confirmation = params[:password_confirmation] 
-      else
-        @user.password = @user.password
+      if !params[:password]
+        @user.password = params[:password] || @user.password
+        @user.password_confirmation = params[:password_confirmation] || @user.password_confirmation
       end
       
-      # if params[:img_url]
-      #   response = Cloudinary::Uploader.upload(params[:img_url])
-      #   @user.profile_picture = response["secure_url"]
-      # end
+      if !params[:img_url]
+        response = Cloudinary::Uploader.upload(params[:img_url])
+        cloudinary_url = response["secure_url"]
+        @user.profile_picture = cloudinary_url || @user.profile_picture
+      end
 
       if @user.save
         render "show.json.jb"
-    else
-      render json: {errors: @user.errors.full_messages}, status: :unprocessable_entity  
+      else
+      render json: {errors: @user.errors.full_messages}, status: :bad_request
       end
     else
       render json: {message: "Unauthorized to edit this user."}
