@@ -1,6 +1,6 @@
 class Comment < ApplicationRecord
-  # validates :notes, :song_timestamp, presence: true
-  # validates :notes, length: { in: 40...500 }
+  validates :notes, :song_timestamp, presence: true
+  validates :notes, length: { maximum: 280 }
   
   # validates :author, presence: true if !current_user
 
